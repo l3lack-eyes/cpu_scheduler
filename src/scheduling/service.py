@@ -2,9 +2,9 @@ from __future__ import annotations
 
 from typing import Any, Dict, List
 
-from scheduling.engine import ProcState, simulate
-from scheduling.policies import FCFS, HRRN, MLQ, MLFQ, RR, SJF, SRTF
-from scheduling.schemas import (
+from src.scheduling.engine import ProcState, simulate
+from src.scheduling.policies import FCFS, HRRN, MLQ, MLFQ, RR, SJF, SRTF
+from src.scheduling.schemas import (
     Averages,
     CompareRequest,
     GanttEntry,
