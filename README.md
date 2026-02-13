@@ -30,4 +30,3 @@ This is equivalent to:
   ]
 }
 ```
-# cpu_scheduler
