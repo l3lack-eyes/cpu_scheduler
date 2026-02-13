@@ -4,7 +4,7 @@ import heapq
 from collections import deque
 from typing import Deque, List, Optional, Tuple
 
-from src.scheduling.engine import Policy, ProcState
+from scheduling.engine import Policy, ProcState
 
 def _key_arrival_pid(p: ProcState) -> Tuple[int, str]:
     return (int(p.arrival_time), str(p.pid))

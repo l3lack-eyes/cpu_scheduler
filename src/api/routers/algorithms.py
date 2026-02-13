@@ -4,8 +4,8 @@ from typing import Any, Dict, List
 
 from fastapi import APIRouter, HTTPException
 
-from src.scheduling.schemas import CompareRequest, SchedulingRequest, SchedulingResponse
-from src.scheduling.service import compare_algorithms, execute_schedule
+from scheduling.schemas import CompareRequest, SchedulingRequest, SchedulingResponse
+from scheduling.service import compare_algorithms, execute_schedule
 
 
 router = APIRouter()

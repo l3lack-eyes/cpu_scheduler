@@ -1,9 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-# Import using the package name so it works both when running locally
-# (python -m src.main) and when Render imports src.main via uvicorn.
-from src.api.routers import algorithms
+from api.routers import algorithms
 
 app = FastAPI(title="CPU Scheduling Visualizer API", version="1.0.0")
 
