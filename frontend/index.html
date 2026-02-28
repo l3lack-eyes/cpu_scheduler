@@ -15,7 +15,7 @@
         </div>
         <div class="flex items-center gap-2">
           <label class="text-sm text-slate-300">API Base</label>
-          <input id="apiBase" class="w-64 px-3 py-2 rounded bg-slate-900 border border-slate-700 font-mono text-sm" value="http://0.0.0.0:8000" />
+          <input id="apiBase" class="w-64 px-3 py-2 rounded bg-slate-900 border border-slate-700 font-mono text-sm" value="https://cpu-scheduler-ob35.onrender.com" />
         </div>
       </header>
 
@@ -97,7 +97,9 @@
       <section class="bg-slate-900/60 border border-slate-800 rounded p-4 space-y-4">
         <h2 class="font-semibold">Gantt Chart</h2>
         <div id="warnings" class="text-amber-300 text-sm"></div>
-        <div id="gantt" class="w-full overflow-x-auto">
+        <!-- Force the Gantt chart itself to be left-to-right so time always increases from left to right,
+             even though the overall page is RTL. -->
+        <div id="gantt" class="w-full overflow-x-auto" dir="ltr">
           <div id="ganttBar" class="flex items-stretch gap-0"></div>
           <div id="ganttAxis" class="flex items-center text-xs text-slate-400 mt-2"></div>
         </div>

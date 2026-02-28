@@ -89,7 +89,40 @@ function renderGantt(gantt) {
   }
 
   const bounds = [gantt[0].start, ...gantt.map((s) => s.end)];
-  axis.innerHTML = `زمان: ${bounds.join("  |  ")}`;
+  // Show time markers in a left‑to‑right friendly way, regardless of page RTL.
+  axis.setAttribute("dir", "ltr");
+  axis.innerHTML = `Time: ${bounds.join("  |  ")}`;
+}
+
+function applyDefaultConfigForAlgorithm(algo) {
+  const cfgEl = $("config");
+  // اگر کاربر چیزی نوشته، بهش دست نزن
+  if (cfgEl.value.trim()) return;
+
+  if (algo === "MLQ") {
+    cfgEl.value = JSON.stringify(
+      {
+        queues: [
+          { algorithm: "SRTF", time_slice: 1 },
+          { algorithm: "SRTF", time_slice: 2 },
+          { algorithm: "RR", time_slice: 4 },
+          { algorithm: "FCFS" },
+        ],
+        priority_mapping: "1-4",
+      },
+      null,
+      2
+    );
+  } else if (algo === "MLFQ") {
+    cfgEl.value = JSON.stringify(
+      {
+        // classic MLFQ: ts, 2ts, 4ts, FCFS
+        time_slices: [4, 8, 16, 100],
+      },
+      null,
+      2
+    );
+  }
 }
 
 function renderMetrics(metrics, averages, cpu_utilization, throughput) {
@@ -210,6 +243,14 @@ function loadSample() {
   addRow({ pid: "P4", arrival: 3, burst: 5, priority: 4 });
 }
 
+function clearPrioritiesForMlfq() {
+  const rows = Array.from($("procBody").querySelectorAll("tr"));
+  for (const r of rows) {
+    const pr = r.querySelector('[data-k="priority"]');
+    if (pr) pr.value = "";
+  }
+}
+
 // init
 renderCompareList();
 addRow({ pid: "P1", arrival: 0, burst: 5, priority: 1 });
@@ -232,5 +273,13 @@ $("compareBtn").addEventListener("click", async () => {
     await compare();
   } catch (e) {
     $("compareOut").textContent = String(e.message || e);
+  }
+});
+
+$("algorithm").addEventListener("change", (e) => {
+  const algo = e.target.value;
+  applyDefaultConfigForAlgorithm(algo);
+  if (algo === "MLFQ") {
+    clearPrioritiesForMlfq();
   }
 });
